@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/data/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({required this.onNewExpense, super.key});
+
+  final void Function(Expense expense) onNewExpense;
 
   @override
   State<StatefulWidget> createState() {
@@ -36,6 +38,13 @@ class _NewExpenseState extends State<NewExpense> {
           ));
       return;
     }
+
+    widget.onNewExpense(
+        Expense(title: _titleTextController.text,
+            amount: amountEntered,
+            date: _selectedDateTime!,
+            category: _selectedCategory)
+    );
   }
 
   void _showDatePicker(BuildContext context) async {
